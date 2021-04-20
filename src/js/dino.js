@@ -10,7 +10,7 @@ export default class DinoWords {
           reject(request.response);
         }
 
-      }
+      };
       request.open("GET", url, true);
       request.send();
     });
@@ -18,9 +18,25 @@ export default class DinoWords {
 
   static getCharacterArray(response) {
     const body = JSON.parse(response);
-    const dinoWord = body[0][0];
+    const dinoWord = body[0][0].toLowerCase();
     const characterArray = dinoWord.split("");
     return characterArray;
+  }
+  static compareLetters(word, letter) {
+    let indexArray = [];
+    word.forEach((element, index) => {
+      if (element === letter) {
+        indexArray.push(index);
+      }
+    });
+    return indexArray;
+  }
+  static replaceLetter(indexArray, letter, answerArray) {
+    let outputAnswerArray = answerArray;
+    indexArray.forEach((element) => {
+      outputAnswerArray[element] = letter;
+    });
+    return outputAnswerArray;
   }
 }
 
